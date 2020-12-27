@@ -5,7 +5,7 @@
     <TodoList
       v-bind:propsdata="todoItems"
       v-on:removeItem="removeOneItem"
-      v-on:toggleComplete="toggleComplete"
+      v-on:toggleOneItem="toggleOneItem"
     ></TodoList>
     <TodoFooter v-on:clearAll="clearAllItems" />
   </div>
@@ -23,13 +23,13 @@ export default {
     };
   },
   methods: {
-    toggleComplete: function(todoItem, index) {
-      this.todoItems.splice(index, todoItem);
+    toggleOneItem: function(todoItem, index) {
+      this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
     addOneItem: function(todoItem) {
-      var obj = { complete: false, item: todoItem };
+      const obj = { complete: false, item: todoItem };
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
@@ -44,7 +44,7 @@ export default {
   },
   created: function() {
     if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
           this.todoItems.push(
             JSON.parse(localStorage.getItem(localStorage.key(i)))
