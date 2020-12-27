@@ -29,8 +29,6 @@ export default {
   methods: {
     toggleComplete: function(todoItem, index) {
       todoItem.completed = !todoItem.completed;
-      // localStorage.removeItem(todoItem.item)
-      // localStorage.setItem(todoItem.item, JSON.stringify((todoItem)))
       this.$emit("toggleComplete", todoItem, index);
     },
     removeTodo: function(todoItem, index) {

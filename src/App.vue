@@ -25,6 +25,8 @@ export default {
   methods: {
     toggleComplete: function(todoItem, index) {
       this.todoItems.splice(index, todoItem);
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
     addOneItem: function(todoItem) {
       var obj = { complete: false, item: todoItem };
